@@ -6,7 +6,9 @@ import {
   ModuleRegistry,
   themeQuartz,
   colorSchemeLightCold,
- colorSchemeDarkBlue
+  colorSchemeDarkBlue,
+  colorSchemeDark,
+  colorSchemeLight
 } from "ag-grid-community";
 import { getAgGridColumns } from '../utils';
 
@@ -15,10 +17,11 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 const Dashboard = () => {
   const [rowData, setRowData] = useState(data.employees);
-   const [darkMode, setDarkMode] = useState(false);
+   const [darkMode, setDarkMode] = useState(false)
   const [colDefs, setColDefs] = useState(
     getAgGridColumns(data.employees, ["firstName", "lastName"])
   );
+  const [themeColor,setThemeColor]=useState('Blue')
 
   const defaultColDef = {
     flex: 1,
@@ -35,12 +38,19 @@ const Dashboard = () => {
   };
 
   const theme = useMemo(() => {
-    const base = darkMode
-      ? themeQuartz.withPart(colorSchemeDarkBlue)
-      : themeQuartz.withPart(colorSchemeLightCold);
+   const base =
+    themeColor === "Neutral"
+       ? darkMode
+         ? colorSchemeDark
+         : colorSchemeLight
+       : 
+       darkMode
+       ? colorSchemeDarkBlue
+       : colorSchemeLightCold;
 
-    return base
-  }, [darkMode]);
+    return  themeQuartz
+    .withPart(base)
+  }, [darkMode, themeColor]);
 
   useEffect(() => {
     setColDefs((prev) =>
@@ -65,15 +75,29 @@ const Dashboard = () => {
 
   return (
     <div className="w-full h-full px-4 py-2">
-      <div className="flex flex-col gap-4 pb-4">
-        <h2 className="text-blue-600 font-bold mb-4 text-xl">
-          Employee Dashboard
-        </h2>
+      <div className="flex flex-col gap-2 mb-5">
+        <h2 className="text-blue-600 font-bold text-xl">Employee Dashboard</h2>
+        <div className="flex gap-4 items-center">
+          <span className='font-medium text-sm'>Theme Colors:</span>
+          <button
+            onClick={() => setThemeColor("Neutral")}
+            className="border px-2 py-1 rounded text-sm w-fit cursor-pointer"
+          >
+            Neutral
+          </button>
+          <button
+            onClick={() => setThemeColor("Blue")}
+            className="border px-2 py-1 rounded text-sm w-fit cursor-pointer"
+          >
+            Blue
+          </button>
+        </div>
         <button
           onClick={() => setDarkMode((mode) => !mode)}
-          className="border px-3 py-1 rounded text-sm hover:bg-blue-100 dark:hover:bg-blue-900 w-fit"
+          className="border px-2 py-1 rounded text-sm w-fit cursor-pointer"
         >
-          <span className='font-medium'>Theme:</span> {darkMode ? " Dark" : "Light"}
+          <span className="font-medium">Theme:</span>{" "}
+          {darkMode ? " Dark" : "Light"} {themeColor}
         </button>
       </div>
       <div className="w-full h-full">
