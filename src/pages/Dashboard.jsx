@@ -78,16 +78,20 @@ const Dashboard = () => {
       <div className="flex flex-col gap-2 mb-5">
         <h2 className="text-blue-600 font-bold text-xl">Employee Dashboard</h2>
         <div className="flex gap-4 items-center">
-          <span className='font-medium text-sm'>Theme Colors:</span>
+          <span className="font-medium text-sm">Theme Colors:</span>
           <button
             onClick={() => setThemeColor("Neutral")}
-            className="border px-2 py-1 rounded text-sm w-fit cursor-pointer"
+            className={`border px-2 py-1 rounded text-sm w-fit cursor-pointer ${
+              themeColor === "Neutral" ? "bg-gray-300" : ""
+            }`}
           >
             Neutral
           </button>
           <button
             onClick={() => setThemeColor("Blue")}
-            className="border px-2 py-1 rounded text-sm w-fit cursor-pointer"
+            className={`border px-2 py-1 rounded text-sm w-fit cursor-pointer ${
+              themeColor === "Blue" ? "bg-gray-300" : ""
+            }`}
           >
             Blue
           </button>
