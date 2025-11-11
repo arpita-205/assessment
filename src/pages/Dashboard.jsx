@@ -78,7 +78,7 @@ const Dashboard = () => {
       <div className="flex flex-col gap-2 mb-5">
         <h2 className="text-blue-600 font-bold text-xl">Employee Dashboard</h2>
         <div className="flex gap-4 items-center">
-          <span className="font-medium text-sm">Theme Colors:</span>
+          <span className="font-medium text-sm">Select to change theme colors:</span>
           <button
             onClick={() => setThemeColor("Neutral")}
             className={`border px-2 py-1 rounded text-sm w-fit cursor-pointer ${
@@ -100,7 +100,7 @@ const Dashboard = () => {
           onClick={() => setDarkMode((mode) => !mode)}
           className="border px-2 py-1 rounded text-sm w-fit cursor-pointer"
         >
-          <span className="font-medium">Theme:</span>{" "}
+          <span className="font-medium">Select to change the theme mode:</span>{" "}
           {darkMode ? " Dark" : "Light"} {themeColor}
         </button>
       </div>
